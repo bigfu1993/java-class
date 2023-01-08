@@ -11,3 +11,6 @@ public class CharDetail{
         System.out.println((int)c3);
     }
 }
+
+// 1. 单引号
+// 2. 支持数学运算
