@@ -1,0 +1,135 @@
+vue3
+    ts支持
+    编译体积减小
+    支持多个根节点
+    静态标签: <1为静态节点 >1为动态节点 会与oldvnode对比
+    静态提升: 结合静态标签，不需要更新的dmo直接提取复用
+    缓存事件监听器：默认onclick是动态的，通过缓存减少事件追踪
+    proxy
+        监听对象>属性
+        监听数组变化
+        返回一个新对象进行操作
+
+webpack v4-v5变化:
+	dev-server使用
+	terser-webpack-plugin
+	资源文件管理 type:asset
+	[hash]->[contenthash]
+webpack
+    打包dll文件
+        生成dll文件
+        module.exports = {
+            entry:{
+                vendor:['vue','jquery']
+            },
+            output:{
+                path:path.resolve(__dirname,'../dll'),
+                filename:'[name].dll.js',
+                library:'[name]_library'
+            },
+            plugins:[
+                new webpack.DllPlugin({
+                    path:path.resolve(__dirname,'../dll/[name]-menifest.json'),
+                    name:'name'
+                })
+            ]
+        }
+        使用dll文件
+        module.exports = {
+            plugins:[
+                new webpack.DllReferencePlugin({
+                    manifest:path.resolve(__dirname,'../dll/vendor-menifest.json'),
+                })
+            ]
+        }
+
+
+    loader实现原理:
+        function(content,map,meta){
+            // 获取loader配置参数
+            安装 loader-utils包
+            import loaderUtils from 'loader-utils'
+            let options = loaderUtils.getOptions(this)
+            // 关闭缓存
+            this.cacheable(false)
+            // 同步函数
+            return result
+            this.callback(err,content,sourceMap,meta)
+            // 异步函数
+            let callback = this.async()
+            setTimeout(()=>{
+                callback(err,content,sourceMap,meta)
+            },100)
+        }
+    plugin实现原理:
+        webpack运行周期上
+        class类
+        必须包含apply方法，参数为webpack compiler对象,new时安装
+        常用钩子：run watchRun complie emit
+        class MyPlugin{
+            apply(complier){
+                compiler.hooks.emit.tap('MyPlugin',(compilation,callback)=>{
+                    console.log('plugin used')
+                })
+            }
+        }
+
+    性能分析:
+        webpack analysis
+        unused-webpack-plugin
+    分包:
+        import(/* webpackChunkName:xxx,webpackPrefetch:true,webpackPreload:true,*/)
+        webpackPrefetch:空闲时异步加载
+        webpackPreload:执行依赖加载
+
+        module.exports = {
+            //...
+            optimization: {
+                splitChunks: {
+                    chunks: 'async',
+                    minSize: 20000, 生成 chunk 的最小体积（以 bytes 为单位）。超出单独分包，未超出可与其他合并
+                    minRemainingSize: 0,  拆分后剩余的最小 chunk 体积超过限制来避免大小为零的模块
+                    minChunks: 1, 拆分前必须共享模块的最小 chunks 数。
+                    maxAsyncRequests: 30, 按需加载时的最大并行请求数。
+                    maxInitialRequests: 30, 入口点的最大并行请求数。
+                    enforceSizeThreshold: 50000,
+                    cacheGroups: {
+                        defaultVendors: {
+                            test: /[\\/]node_modules[\\/]/,
+                            priority: -10, 分包优先级
+                            minChunks: 2, 引用次数
+                            reuseExistingChunk: true, 如果当前 chunk 包含已从主 bundle 中拆分出的模块，则它将被重用
+                        },
+                        default: {
+                            minChunks: 2,
+                            priority: -20,
+                            reuseExistingChunk: true,
+                        },
+                    },
+                },
+            },
+        };
+		pinia:
+			import { createPinia, defineStore  } from 'pinia'
+			let pinia = createPinia()
+			vue.use(pinia)
+			let useUserStore = defineStore('user',()=>{
+					state:()=>{
+							return {
+								name:'',
+								age:18
+							}
+					},
+					getter:{
+						calcName:(state)=>{
+								return state.name + '-calc'
+						}
+					},
+					actions:{
+						increaseAge(){
+							this.age ++
+						}
+					}
+
+			})
+
