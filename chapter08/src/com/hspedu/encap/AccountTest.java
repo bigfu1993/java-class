@@ -4,13 +4,21 @@ public class AccountTest {
     public static void main(String[] args) {
         Account bigfu = new Account("bigfu", 40, "bigfu0");
         bigfu.info();
+        Account admin = new Account();
+        admin.info();
     }
 }
 
 class Account{
-    String name;
+    private String name;
     private double money;
     private String password;
+
+    public Account() {
+        this.setName("admin");
+        this.setMoney(40);
+        this.setPassword("000000");
+    }
 
     public Account(String name, double money, String password) {
         this.setName(name);
@@ -24,7 +32,7 @@ class Account{
     }
 
     public void setName(String name) {
-        if(name.length()>=2 && name.length()<=4){
+        if(name.length()>=2 && name.length()<=8){
             this.name = name;
         }else{
             System.out.println("用户名不合法，初始用户名为：admin");
