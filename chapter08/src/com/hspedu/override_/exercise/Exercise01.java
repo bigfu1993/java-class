@@ -6,6 +6,6 @@ public class Exercise01 {
         Student ls = new Student("ls", 22, 1, 24.5);
         System.out.println(zs.say());
         System.out.println(ls.say());
-
+        "abc".equals("abc");
     }
 }
