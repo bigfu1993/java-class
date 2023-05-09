@@ -10,6 +10,7 @@ public class SmallChangeSys {
         Scanner scanner = new Scanner(System.in);
         String key = "";
         String details = "";
+        String note = "";
         double money = 0;
         double balance = 0;
         Date date = null;
@@ -39,10 +40,16 @@ public class SmallChangeSys {
                     details += "入账\t+¥" + money + "\t" + sdf.format(new Date()) + "\t余额" + balance + "\n";
                     break;
                 case "3":
-                    System.out.println("3 消费");
+                    System.out.print("请输入消费金额：");
+                    money = scanner.nextDouble();
+                    System.out.print("请输入消费说明：");
+                    note = scanner.next();
+                    balance-=money;
+                    details += note+"\t-¥" + money + "\t" + sdf.format(new Date()) + "\t余额" + balance + "\n";
                     break;
                 case "4":
                     System.out.println("4 exit");
+                    System.out.println("");
                     loop = false;
                     break;
                 default:
