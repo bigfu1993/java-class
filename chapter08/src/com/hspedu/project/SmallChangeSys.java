@@ -36,7 +36,7 @@ public class SmallChangeSys {
                     System.out.println("入账金额：¥" + money);
                     balance += money;
                     date = new Date();
-                    details += "入账\t¥" + money + "\t" + sdf.format(new Date()) + "\t余额" + balance + "\n";
+                    details += "入账\t+¥" + money + "\t" + sdf.format(new Date()) + "\t余额" + balance + "\n";
                     break;
                 case "3":
                     System.out.println("3 消费");
