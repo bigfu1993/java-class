@@ -47,7 +47,7 @@ public class SmallChangeSys {
                     System.out.print("请输入消费金额：");
                     money = scanner.nextDouble();
                     if (money <= 0 || money > balance) {
-                        System.out.println("消费金额必须小于0！");
+                        System.out.println("消费金额必须¥0-" + balance);
                         break;
                     }
                     System.out.print("请输入消费说明：");
