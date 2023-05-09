@@ -34,6 +34,10 @@ public class SmallChangeSys {
                 case "2":
                     System.out.print("请输入收益入账：");
                     money = scanner.nextDouble();
+                    if (money < 0) {
+                        System.out.println("收益金额必须大于0！");
+                        break;
+                    }
                     System.out.println("入账金额：¥" + money);
                     balance += money;
                     date = new Date();
@@ -42,6 +46,10 @@ public class SmallChangeSys {
                 case "3":
                     System.out.print("请输入消费金额：");
                     money = scanner.nextDouble();
+                    if (money <= 0 || money > balance) {
+                        System.out.println("消费金额必须小于0！");
+                        break;
+                    }
                     System.out.print("请输入消费说明：");
                     note = scanner.next();
                     balance -= money;
@@ -57,7 +65,7 @@ public class SmallChangeSys {
                             break;
                         }
                     }
-                    if(choice.equals("y")){
+                    if (choice.equals("y")) {
                         loop = false;
                         System.out.println("*** 退出成功 ****");
                     }
