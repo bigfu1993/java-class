@@ -44,13 +44,23 @@ public class SmallChangeSys {
                     money = scanner.nextDouble();
                     System.out.print("请输入消费说明：");
                     note = scanner.next();
-                    balance-=money;
-                    details += note+"\t-¥" + money + "\t" + sdf.format(new Date()) + "\t余额" + balance + "\n";
+                    balance -= money;
+                    details += note + "\t-¥" + money + "\t" + sdf.format(new Date()) + "\t余额" + balance + "\n";
                     break;
                 case "4":
+                    String choice = "";
                     System.out.println("4 exit");
-                    System.out.println("");
-                    loop = false;
+                    while (true) {
+                        System.out.println("你确定退出么y/n？");
+                        choice = scanner.next();
+                        if ("y".equals(choice) || "n".equals(choice)) {
+                            break;
+                        }
+                    }
+                    if(choice.equals("y")){
+                        loop = false;
+                        System.out.println("*** 退出成功 ****");
+                    }
                     break;
                 default:
                     System.out.println("选择有误");
