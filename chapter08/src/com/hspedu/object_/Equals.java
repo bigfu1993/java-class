@@ -1,5 +1,6 @@
 package com.hspedu.object_;
 
+
 public class Equals {
     public static void main(String[] args) {
         Person person1 = new Person("zs", 20, '男');
@@ -29,5 +30,23 @@ class Person {
             return p.name.equals(this.name) && p.age == this.age && p.gender == this.gender;
         }
         return false;
+    }
+}
+
+class Per{
+    int age;
+    String name;
+
+    public Per(int age, String name) {
+        this.age = age;
+        this.name = name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
